@@ -9,28 +9,28 @@ function NewExpense(props) {
       id: Math.random().toString(),
     };
     props.onAddExpense(expenseData);
-    setAddNewExpense(true);
+    setIsEditing(false);
   };
 
-  const [addNewExpense, setAddNewExpense] = useState(true);
-  const addNewExpenseHandler = () => {
-    setAddNewExpense(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const startEditingHandler = () => {
+    setIsEditing(true);
   };
 
-  const cancelHandler = (cancel) => {
-    setAddNewExpense(cancel);
+  const stopEditingHandler = () => {
+    setIsEditing(false);
   };
 
   return (
     <div className="new-expense">
-      {!addNewExpense && (
+      {isEditing && (
         <ExpenseForm
         onSaveExpenseData={saveExpenseDataHandler}
-        onCancel={cancelHandler}
+        onCancel={stopEditingHandler}
         />
       )}
-      {addNewExpense && (
-        <button onClick={addNewExpenseHandler}>Add New Expense</button>
+      {!isEditing && (
+        <button onClick={startEditingHandler}>Add New Expense</button>
       )}
     </div>
   );
